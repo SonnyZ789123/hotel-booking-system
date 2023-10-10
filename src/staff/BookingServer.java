@@ -14,7 +14,7 @@ public class BookingServer {
 
             // Bind the remote object's stub in the registry
             Registry registry = LocateRegistry.getRegistry();
-            registry.bind("Booking", stub);
+            registry.bind("BookingManager", stub);
 
             System.err.println("Server ready");
         } catch (Exception e) {
