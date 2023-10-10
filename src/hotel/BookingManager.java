@@ -40,8 +40,14 @@ public class BookingManager implements IBookingManager {
 
     @Override
     public Set<Integer> getAvailableRooms(LocalDate date) {
-        //implement this method
-        return null;
+        Set<Integer> availableRooms = new HashSet<>();
+
+        for (Room room : rooms) {
+            if (isRoomAvailable(room.getRoomNumber(), date)) {
+                availableRooms.add(room.getRoomNumber());
+            }
+        }
+        return availableRooms;
     }
 
     private Room getRoom(Integer roomNumber) {
