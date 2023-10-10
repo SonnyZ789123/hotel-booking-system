@@ -2,12 +2,12 @@ package staff;
 
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 import hotel.BookingDetail;
-import hotel.BookingManager;
 import hotel.IBookingManager;
 
 public class BookingClient extends AbstractScriptedSimpleTest {
@@ -34,23 +34,44 @@ public class BookingClient extends AbstractScriptedSimpleTest {
 
     @Override
     public boolean isRoomAvailable(Integer roomNumber, LocalDate date) {
-        //Implement this method
-        return true;
+        try {
+            return bm.isRoomAvailable(roomNumber, date);
+        } catch (RemoteException e) {
+            System.err.println("Client exception: " + e);
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public void addBooking(BookingDetail bookingDetail) {
-        //Implement this method
+        try {
+            bm.addBooking(bookingDetail);
+        } catch (RemoteException e) {
+            System.err.println("Client exception: " + e);
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Set<Integer> getAvailableRooms(LocalDate date) {
-        //Implement this method
-        return null;
+        try {
+            return bm.getAvailableRooms(date);
+        } catch (RemoteException e) {
+            System.err.println("Client exception: " + e);
+            e.printStackTrace();
+            return new HashSet<>();
+        }
     }
 
     @Override
-    public Set<Integer> getAllRooms() throws RemoteException {
-        return bm.getAllRooms();
+    public Set<Integer> getAllRooms() {
+        try {
+            return bm.getAllRooms();
+        } catch (RemoteException e) {
+            System.err.println("Client exception: " + e);
+            e.printStackTrace();
+            return new HashSet<>();
+        }
     }
 }
