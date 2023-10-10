@@ -34,7 +34,8 @@ public class BookingManager implements IBookingManager {
 
     @Override
     public void addBooking(BookingDetail bookingDetail) {
-        //implement this method
+        Room room = getRoom(bookingDetail.getRoomNumber());
+        room.addBooking(bookingDetail);
     }
 
     @Override
