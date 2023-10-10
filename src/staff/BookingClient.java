@@ -1,14 +1,16 @@
 package staff;
 
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.Set;
 
 import hotel.BookingDetail;
 import hotel.BookingManager;
+import hotel.IBookingManager;
 
 public class BookingClient extends AbstractScriptedSimpleTest {
 
-	private BookingManager bm = null;
+	private IBookingManager bm = null;
 
 	public static void main(String[] args) throws Exception {
 		BookingClient client = new BookingClient();
@@ -45,7 +47,7 @@ public class BookingClient extends AbstractScriptedSimpleTest {
 	}
 
 	@Override
-	public Set<Integer> getAllRooms() {
+	public Set<Integer> getAllRooms() throws RemoteException {
 		return bm.getAllRooms();
 	}
 }

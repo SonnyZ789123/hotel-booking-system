@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BookingManager {
+public class BookingManager implements IBookingManager {
 
 	private Room[] rooms;
 
@@ -13,6 +13,7 @@ public class BookingManager {
 		this.rooms = initializeRooms();
 	}
 
+	@Override
 	public Set<Integer> getAllRooms() {
 		Set<Integer> allRooms = new HashSet<Integer>();
 		Iterable<Room> roomIterator = Arrays.asList(rooms);
@@ -22,15 +23,18 @@ public class BookingManager {
 		return allRooms;
 	}
 
+	@Override
 	public boolean isRoomAvailable(Integer roomNumber, LocalDate date) {
 		//implement this method
 		return false;
 	}
 
+	@Override
 	public void addBooking(BookingDetail bookingDetail) {
 		//implement this method
 	}
 
+	@Override
 	public Set<Integer> getAvailableRooms(LocalDate date) {
 		//implement this method
 		return null;
