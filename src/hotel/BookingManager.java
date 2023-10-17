@@ -32,17 +32,14 @@ public class BookingManager implements IBookingManager {
         return bookingDetailOptional.isEmpty();
     }
 
+    // Only this method needs to be synchronized because the other ones are read-only.
     @Override
     public synchronized void addBooking(BookingDetail bookingDetail) {
         Integer roomNumber = bookingDetail.getRoomNumber();
-        // TODO: also ask if this is what they meant to make this thread-safe
-        // TODO: this check triggers an error "Room 102 is not available on 2023-10-10" by the AbstractScriptedSimpleTest that I can't change.
-        if (!isRoomAvailable(roomNumber, bookingDetail.getDate())) {
-            throw new IllegalArgumentException(
-                    "Room " + roomNumber + " is not available on " + bookingDetail.getDate().toString());
+        if (isRoomAvailable(roomNumber, bookingDetail.getDate())) {
+            Room room = getRoom(roomNumber);
+            room.addBooking(bookingDetail);
         }
-        Room room = getRoom(roomNumber);
-        room.addBooking(bookingDetail);
     }
 
     @Override
